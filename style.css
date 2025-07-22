@@ -59,7 +59,7 @@ body {
     color: inherit;
     padding: 10px;
     border-right: 1px solid #e0e0e0;
-    height: 120px; 
+    height: 100px; /* <-- CAMBIO: Altura reducida */
     border-radius: 4px;
     border: 2px solid transparent; 
     transition: border-color 0.3s ease, box-shadow 0.3s ease; 
@@ -75,10 +75,9 @@ body {
     margin-right: 15px;
 }
 
-/* --- CAMBIO: Tamaño del icono aumentado --- */
 .indicator-card img {
-    width: 100px;
-    height: 112px;
+    width: 60px;   /* <-- CAMBIO: Tamaño del icono ajustado */
+    height: 60px;  /* <-- CAMBIO: Tamaño del icono ajustado */
     object-fit: contain;
 }
 
@@ -92,7 +91,7 @@ body {
 
 /* Estilos para cada línea de texto */
 .indicator-card .nombre-indicador {
-    font-size: 0.9em;
+    font-size: 0.85em; /* <-- CAMBIO: Fuente ajustada */
     font-weight: bold;
     color: #333;
     margin: 0;
@@ -100,14 +99,14 @@ body {
 
 .indicator-card .descripcion,
 .indicator-card .anio {
-    font-size: 0.8em;
+    font-size: 0.75em; /* <-- CAMBIO: Fuente ajustada */
     color: #666;
     margin: 2px 0 0 0;
     line-height: 1.2;
 }
 
 .indicator-card .valor-indicador {
-    font-size: 1.8em; 
+    font-size: 1.6em; /* <-- CAMBIO: Fuente ajustada */
     font-weight: bold;
     color: #0086cf; 
     margin-top: auto;
