@@ -1,7 +1,7 @@
 // --- CONFIGURACIÓN ---
 const restApiUrl = "https://services7.arcgis.com/lsxbLWF2l19Rmhqj/ArcGIS/rest/services/IndicadoresBanner/FeatureServer/0/query?where=1%3D1&outFields=*&f=json";
-const itemsPerPage = 5; // <-- CAMBIO: Se ajusta a 5 tarjetas por vista
-const autoScrollInterval = 4000; 
+const itemsPerPage = 5; // 5 tarjetas por vista
+const autoScrollInterval = 8000; // velocidad más lenta
 
 // --- ELEMENTOS DEL DOM ---
 const slider = document.getElementById('indicator-slider');
@@ -35,7 +35,6 @@ async function initializeCarousel() {
 
         slider.innerHTML = indicators.map(item => {
             const attr = item.attributes;
-            
             const link = attr.URL_Destino || '#';
             const icon = attr.URL_Icono || '';
             const title = attr.NombreIndicador || 'Indicador';
@@ -60,6 +59,15 @@ async function initializeCarousel() {
             `;
         }).join('');
 
+        // --- NUEVO COMPORTAMIENTO ---
+        // Pausar al entrar a una tarjeta y reanudar al salir de esa misma tarjeta
+        const cards = slider.querySelectorAll('.indicator-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', stopAutoScroll);
+            card.addEventListener('mouseleave', startAutoScroll);
+        });
+        // --- FIN NUEVO COMPORTAMIENTO ---
+
         startAutoScroll();
     } catch (error) {
         console.error('Error detallado al cargar los indicadores:', error);
@@ -67,7 +75,7 @@ async function initializeCarousel() {
     }
 }
 
-// Funciones para controlar el carrusel (sin cambios)
+// Funciones para controlar el carrusel
 function updateCarousel() {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     if (currentIndex >= totalPages) currentIndex = 0;
@@ -93,10 +101,13 @@ function startAutoScroll() {
 }
 
 function stopAutoScroll() {
-    clearInterval(autoScrollTimer);
+    if (autoScrollTimer) {
+        clearInterval(autoScrollTimer);
+        autoScrollTimer = null;
+    }
 }
 
-// Asignar eventos a los botones (sin cambios)
+// Eventos de botones
 prevBtn.addEventListener('click', () => {
     showPrev();
     stopAutoScroll();
@@ -107,5 +118,5 @@ nextBtn.addEventListener('click', () => {
     stopAutoScroll();
 });
 
-// Iniciar todo
+// Iniciar
 initializeCarousel();
